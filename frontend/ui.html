@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- ... other head elements ... -->
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+        background-color: pink; /* Set the background color to pink */
+        position: relative; /* Set position to relative for absolute positioning of text */
+      }
+
+      body::before {
+        content: "TESSOLVE SEMICONDUCTORS";
+        position: absolute;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 1.5em; /* Adjust the font size as needed */
+        color: rgb(255, 0, 0); /* Set the text color to dark orange */
+        font-weight: bold; /* Set font weight if desired */
+      }
+
+      h1 {
+        color: rgb(11, 11, 11); /* Set the color of the main heading */
+      }
+
+      .button-container {
+        display: flex;
+        flex-direction: row; /* Set to row for horizontal alignment */
+        gap: 10px; /* Add some spacing between buttons */
+        margin-top: 20px; /* Add some spacing between the main heading and content */
+      }
+
+      button {
+        background-color: blue;
+        color: white;
+        font-size: 1.2em;
+      }
+
+      .data-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between; /* Distribute space evenly between the items */
+        margin-top: 20px; /* Add some spacing between the button and data */
+        width: 300px; /* Adjust the width as needed */
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Tessolve IOTSF</h1>
+
+    <div class="button-container">
+      <button id="avg-temp-btn" onclick="redirectToAvgTempSensorData()">
+        Average Temperature
+      </button>
+      <button id="pressure-btn" onclick="redirectToAvgPressureSensorData()">
+        Average Humidity
+      </button>
+    </div>
+
+    <div class="data-container">
+      <div id="temp-display">Temperature will be displayed here</div>
+      <div id="pressure-display">Pressure data will be displayed here</div>
+    </div>
+
+    <script src="ui.js"></script>
+  </body>
+</html>

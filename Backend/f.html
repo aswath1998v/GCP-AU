@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data Display</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Data Display</h1>
+
+    <table id="data-table">
+      <thead>
+        <tr>
+          <th>Temperature</th>
+          <th>Time</th>
+          <th>Humidity</th>
+        </tr>
+      </thead>
+      <tbody id="table-body">
+        <!-- Data will be inserted here -->
+      </tbody>
+    </table>
+
+    <button onclick="downloadExcel()">Download Excel</button>
+
+    <script>
+      async function fetchData() {
+        try {
+          const response = await fetch(
+            "http://localhost:3001/api/processed-data"
+          );
+          const data = await response.json();
+          displayData(data);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      }
+
+      function displayData(data) {
+        const tableBody = document.getElementById("table-body");
+        data.forEach((item) => {
+          const row = document.createElement("tr");
+          const cell1 = document.createElement("td");
+          const cell2 = document.createElement("td");
+          const cell3 = document.createElement("td");
+          cell1.textContent = item.temperature;
+          cell2.textContent = item.time;
+          cell3.textContent = item.humidity;
+          row.appendChild(cell1);
+          row.appendChild(cell2);
+          row.appendChild(cell3);
+          tableBody.appendChild(row);
+        });
+      }
+
+      async function downloadExcel() {
+        try {
+          const response = await fetch("http://localhost:3001/api/download");
+          const blob = await response.blob();
+          const link = document.createElement("a");
+          link.href = window.URL.createObjectURL(blob);
+          link.download = "data.xlsx";
+          link.click();
+        } catch (error) {
+          console.error("Error downloading Excel:", error);
+        }
+      }
+
+      fetchData(); // Fetch data on page load
+    </script>
+  </body>
+</html>
